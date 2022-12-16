@@ -38,7 +38,7 @@ public class MainMenuController {
 
     private MainMenu selectMenu() {
         try {
-            String input = InputView.inputMainMenu();
+            String input = InputView.inputMenu();
             return MainMenu.from(input);
         } catch (IllegalArgumentException exception) {
             OutputView.printErrorMessage(exception.getMessage());

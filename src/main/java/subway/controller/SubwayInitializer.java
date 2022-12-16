@@ -27,37 +27,45 @@ public class SubwayInitializer {
     }
 
     private static void initSection() {
-        initLineTwoSection(LineRepository.findByName("2호선"));
-        initLineThreeSection(LineRepository.findByName("3호선"));
-        initLineSinbundangSection(LineRepository.findByName("신분당선"));
+        initSectionStations();
+        initLineTwoSection();
+        initLineThreeSection();
+        initLineSinbundangSection();
     }
 
-    private static void initLineTwoSection(Line line) {
-        SectionRepository.addLine(line);
+    private static void initSectionStations() {
+        SectionRepository.addStation(StationRepository.findByName("교대역"));
+        SectionRepository.addStation(StationRepository.findByName("강남역"));
+        SectionRepository.addStation(StationRepository.findByName("역삼역"));
+        SectionRepository.addStation(StationRepository.findByName("남부터미널역"));
+        SectionRepository.addStation(StationRepository.findByName("양재역"));
+        SectionRepository.addStation(StationRepository.findByName("양재시민의숲역"));
+        SectionRepository.addStation(StationRepository.findByName("매봉역"));
+    }
+
+    private static void initLineTwoSection() {
         Station gyodae = StationRepository.findByName("교대역");
         Station gangnam = StationRepository.findByName("강남역");
         Station yeoksam = StationRepository.findByName("역삼역");
-        SectionRepository.addSection(line, gyodae, gangnam, 2, 3);
-        SectionRepository.addSection(line, gangnam, yeoksam, 2, 3);
+        SectionRepository.addSection(gyodae, gangnam, 2, 3);
+        SectionRepository.addSection(gangnam, yeoksam, 2, 3);
     }
 
-    private static void initLineThreeSection(Line line) {
-        SectionRepository.addLine(line);
+    private static void initLineThreeSection() {
         Station gyodae = StationRepository.findByName("교대역");
         Station nambuterminal = StationRepository.findByName("남부터미널역");
         Station yangjae = StationRepository.findByName("양재역");
         Station maebong = StationRepository.findByName("매봉역");
-        SectionRepository.addSection(line, gyodae, nambuterminal, 3, 2);
-        SectionRepository.addSection(line, nambuterminal, yangjae, 6, 5);
-        SectionRepository.addSection(line, yangjae, maebong, 1, 1);
+        SectionRepository.addSection(gyodae, nambuterminal, 3, 2);
+        SectionRepository.addSection(nambuterminal, yangjae, 6, 5);
+        SectionRepository.addSection(yangjae, maebong, 1, 1);
     }
 
-    private static void initLineSinbundangSection(Line line) {
-        SectionRepository.addLine(line);
+    private static void initLineSinbundangSection() {
         Station gangnam = StationRepository.findByName("강남역");
         Station yangjae = StationRepository.findByName("양재역");
         Station yangjaeCitizenForest = StationRepository.findByName("양재시민의숲역");
-        SectionRepository.addSection(line, gangnam, yangjae, 2, 8);
-        SectionRepository.addSection(line, yangjae, yangjaeCitizenForest, 10, 3);
+        SectionRepository.addSection(gangnam, yangjae, 2, 8);
+        SectionRepository.addSection(yangjae, yangjaeCitizenForest, 10, 3);
     }
 }
