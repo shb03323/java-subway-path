@@ -35,6 +35,15 @@ public class SectionRepository {
         return new ResultDto(route.stream().collect(Collectors.toUnmodifiableList()), routeLength, routeTime);
     }
 
+    public static ResultDto findShortestTime(Station startStation, Station destinationStation) {
+        validateSameStation(startStation, destinationStation);
+        DijkstraShortestPath dijkstraShortestPath = new DijkstraShortestPath(timeGraph);
+        List<Station> route =  dijkstraShortestPath.getPath(startStation, destinationStation).getVertexList();
+        int routeLength = getRouteLength(route);
+        int routeTime = getRouteTime(route);
+        return new ResultDto(route.stream().collect(Collectors.toUnmodifiableList()), routeLength, routeTime);
+    }
+
     private static int getRouteLength(List<Station> route) {
         int length = 0;
         for (int i = 0; i < route.size() - 1; i++) {

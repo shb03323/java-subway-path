@@ -1,11 +1,14 @@
 package subway.controller;
 
-import subway.domain.*;
+import subway.domain.ResultDto;
+import subway.domain.RouteSearchMenu;
+import subway.domain.SectionRepository;
+import subway.domain.Station;
+import subway.domain.StationRepository;
 import subway.view.InputView;
 import subway.view.OutputView;
 
 import java.util.EnumMap;
-import java.util.List;
 import java.util.Map;
 
 public class SearchRouteController implements Controllable {
@@ -54,7 +57,12 @@ public class SearchRouteController implements Controllable {
     }
 
     private static void searchShortestTime() {
-
+        String startStationName = InputView.inputStartStation();
+        Station startStation = StationRepository.findByName(startStationName);
+        String destinationStationName = InputView.inputDestinationStation();
+        Station destinationStation = StationRepository.findByName(destinationStationName);
+        ResultDto result = SectionRepository.findShortestTime(startStation, destinationStation);
+        showResult(result);
     }
 
     private static void goBack() {}
