@@ -1,13 +1,11 @@
 package subway.controller;
 
-import subway.domain.RouteSearchMenu;
-import subway.domain.SectionRepository;
-import subway.domain.Station;
-import subway.domain.StationRepository;
+import subway.domain.*;
 import subway.view.InputView;
 import subway.view.OutputView;
 
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 public class SearchRouteController implements Controllable {
@@ -51,8 +49,8 @@ public class SearchRouteController implements Controllable {
         Station startStation = StationRepository.findByName(startStationName);
         String destinationStationName = InputView.inputDestinationStation();
         Station destinationStation = StationRepository.findByName(destinationStationName);
-        SectionRepository.findShortestLength(startStation, destinationStation);
-        showResult();
+        ResultDto result = SectionRepository.findShortestLength(startStation, destinationStation);
+        showResult(result);
     }
 
     private static void searchShortestTime() {
@@ -61,7 +59,10 @@ public class SearchRouteController implements Controllable {
 
     private static void goBack() {}
 
-    private static void showResult() {
-
+    private static void showResult(ResultDto result) {
+        OutputView.printResultHeader();
+        OutputView.printResultLength(result.getRouteLength());
+        OutputView.printResultTime(result.getRouteTime());
+        OutputView.printResultRoute(result.getRoute());
     }
 }
